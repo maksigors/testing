@@ -13,27 +13,19 @@ def test_search():
         .element('.r>a').click()
     browser.should(have.title_containing('yashaka/selene'))
 
-def test_todo():
-    #browser.config.browser_name = 'firefox'
+def test_abc():
     browser.open('https://todomvc.com/examples/emberjs/')
-
-    browser.element('label').should(have.text('a'))
-    browser.element('label').should(have.text('b'))
-    browser.element('label').should(have.text('c'))
-
-    #browser.element('label').should(have.text('a')).type('b').click()
     browser.element('#new-todo').type('a').press_enter()
     browser.element('#new-todo').type('b').press_enter()
     browser.element('#new-todo').type('c').press_enter()
 
-    browser.all('#todo-list>li').should(have.exact_texts('a', 'b', 'c'))
     browser.all('#todo-list>li').element_by(have.exact_text('b')) \
         .element('.toggle').click()
-    #browser.all('#filters>li').should(have.exact_text('Completed')).click()
-    browser.all('#todo-list>li').filtered_by(have.css_class('completed')) \
-        .should(have.exact_text('b'))
-    browser.all('#todo-list>li').filtered_by(have.no.css_class('completed')) \
-        .should(have.exact_texts('a', 'c'))
+    browser.all('#filters a').element_by(have.exact_text('Completed')) \
+        .click()
+    browser.all('#filters a').element_by(have.exact_text('Active')) \
+        .click()
 
 #============ main ======================
-test_todo()
+
+test_abc()
