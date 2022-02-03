@@ -1,6 +1,7 @@
 # Игнорировать каталог node_modules 
 node_modules/ 
 
+.gitignore 
 # Игнорирование логов 
 logs 
 *.log 
