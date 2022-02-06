@@ -1,19 +1,8 @@
 from selene import by, be, have
 from selene.support.shared import browser, config
-#config.browser_name: str = 'firefox'
-def test_search():
-    browser.config.browser_name = 'firefox'
-    browser.config.base_url = 'https://google.com'
-    browser.config.timeout = 2
-    browser.open('https://google.com/ncr')
-    browser.element(by.name('q')).should(be.blank)\
-        .type('python selene').press_enter()
-    browser.all('#search .g').should(have.size_greater_than_or_equal(6))\
-        .first.should(have.text('Concise API for Selenium'))\
-        .element('.r>a').click()
-    browser.should(have.title_containing('yashaka/selene'))
 
-def test_abc():
+#============ module 1 ======================
+def test_add_tasks():
     browser.open('https://todomvc.com/examples/emberjs/')
     browser.element('#new-todo').should(be.visible).type('a').press_enter()
     browser.element('#new-todo').type('b').press_enter()
@@ -28,12 +17,36 @@ def test_abc():
         .should(have.exact_texts('b'))
     browser.all('#todo-list>li').filtered_by(have.no.css_class('completed'))\
         .should(have.exact_texts('a', 'c'))
-def test_abc_xpath():
+#end__DEF#
+
+#============ module 2 ======================
+def test_add_tasks_xpath():
     browser.open('https://todomvc.com/examples/emberjs/')
     browser.element('#new-todo').type('a').press_enter()
     browser.element('#new-todo').type('b').press_enter()
     browser.element('#new-todo').type('c').press_enter()
 
-#============ main ======================
+    browser.element('//*[@id="todo-list"]//li[.//text()="b"]'
+                    '//*[@class="toggle"]').click()
 
-test_abc()
+
+    browser.element('//*[@id="todo-list"]//li[.//text()="a"]'
+                    '//*[@class!="completed"]')
+    browser.element('//*[@id="todo-list"]//li[.//text()="c"]'
+                    '//*[@class!="completed"]')
+    browser.element('//*[@id="todo-list"]//li[.//text()="c"]'
+                    '//*[@class!="completed"]')
+
+    browser.element('//*[@id="filters"]//a[.//text()="Completed"]').click()
+    for n in range(1, 10000000):
+        n = n * n
+    browser.element('//*[@id="filters"]//a[.//text()="Active"]').click()
+    for n in range(1, 10000000):
+        n = n * n
+#end__DEF#
+
+#   =====================================
+#================= M A I N ==================
+#   =====================================
+
+#test_abc_xpath()
