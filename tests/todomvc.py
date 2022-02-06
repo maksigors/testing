@@ -33,15 +33,11 @@ def test_add_tasks_xpath():
     browser.all('#todo-list li.completed').should(have.exact_text('b'))
 
     browser.element('//*[@id="filters"]//a[.//text()="Completed"]').click()
-    for n in range(1, 10000000):
-        n = n * n
     browser.element('//*[@id="filters"]//a[.//text()="Active"]').click()
-    for n in range(1, 10000000):
-        n = n * n
+
 #end__DEF#
 
 #   =====================================
 #================= M A I N ==================
 #   =====================================
 
-#test_abc_xpath()
