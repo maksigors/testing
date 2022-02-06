@@ -1,6 +1,6 @@
 from selene import by, be, have
-from selene.support.shared import browser
-
+from selene.support.shared import browser, config
+#config.browser_name: str = 'firefox'
 def test_search():
     browser.config.browser_name = 'firefox'
     browser.config.base_url = 'https://google.com'
@@ -15,16 +15,20 @@ def test_search():
 
 def test_abc():
     browser.open('https://todomvc.com/examples/emberjs/')
-    browser.element('#new-todo').type('a').press_enter()
+    browser.element('#new-todo').should(be.visible).type('a').press_enter()
     browser.element('#new-todo').type('b').press_enter()
     browser.element('#new-todo').type('c').press_enter()
 
+    browser.all('#todo-list>li').should(have.exact_texts('a', 'b', 'c'))
+
     browser.all('#todo-list>li').element_by(have.exact_text('b')) \
         .element('.toggle').click()
-    browser.all('#filters a').element_by(have.exact_text('Completed')) \
-        .click()
-    browser.all('#filters a').element_by(have.exact_text('Active')) \
-        .click()
+
+    browser.all('#todo-list>li').filtered_by(have.css_class('completed')) \
+        .should(have.exact_texts('b'))
+    browser.all('#todo-list>li').filtered_by(have.no.css_class('completed'))\
+        .should(have.exact_texts('a', 'c'))
+
 
 #============ main ======================
 
