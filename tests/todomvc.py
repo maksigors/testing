@@ -29,13 +29,8 @@ def test_add_tasks_xpath():
     browser.element('//*[@id="todo-list"]//li[.//text()="b"]'
                     '//*[@class="toggle"]').click()
 
-
-    browser.element('//*[@id="todo-list"]//li[.//text()="a"]'
-                    '//*[@class!="completed"]')
-    browser.element('//*[@id="todo-list"]//li[.//text()="c"]'
-                    '//*[@class!="completed"]')
-    browser.element('//*[@id="todo-list"]//li[.//text()="c"]'
-                    '//*[@class!="completed"]')
+    browser.all('#todo-list li:not(.completed)').should(have.exact_texts('a','c'))
+    browser.all('#todo-list li.completed').should(have.exact_text('b'))
 
     browser.element('//*[@id="filters"]//a[.//text()="Completed"]').click()
     for n in range(1, 10000000):
