@@ -32,5 +32,3 @@ def test_todo_complete_css():
         .should(have.exact_text('b'))
     browser.all('#todo-list>li:not(.completed)') \
         .should(have.exact_texts('a','c'))
-
-    print('End')
