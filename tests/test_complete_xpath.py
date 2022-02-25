@@ -2,7 +2,7 @@ from selene import by, be, have
 from selene.support.shared import browser, config
 from selen.libs.helpers import xpath as xp
 
-def test_add_tasks_xpath():
+def test_add_tasks():
     browser.open('https://todomvc.com/examples/emberjs/')
     browser.element('//*[@id="new-todo"]').type('a').press_enter()
     browser.element('//*[@id="new-todo"]').type('b').press_enter()
